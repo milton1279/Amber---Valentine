@@ -1,144 +1,225 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Amber 💕</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      font-family: 'Georgia', serif;
-      background: linear-gradient(135deg, #fbc2eb, #f9d423);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
+<meta charset="UTF-8">
+<title>Amber 💚</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+  margin: 0;
+  font-family: Georgia, serif;
+  background: linear-gradient(135deg, #a8e6cf, #56ab2f); /* green gradient */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
 
-    .card {
-      background: rgba(255, 255, 255, 0.95);
-      padding: 35px 25px;
-      border-radius: 24px;
-      text-align: center;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-      max-width: 360px;
-      animation: fadeIn 2s ease;
-    }
+.card {
+  background: rgba(255,255,255,0.95);
+  padding: 30px 20px;
+  border-radius: 24px;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+  max-width: 380px;
+  animation: fadeIn 2s ease;
+  position: relative;
+}
 
-    h1 {
-      color: #e2557f;
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
+h1 {
+  color: #2a7f34;
+  font-size: 28px;
+  margin-bottom: 10px;
+}
 
-    p {
-      color: #555;
-      font-size: 17px;
-      line-height: 1.5;
-      margin: 12px 0;
-    }
+p {
+  color: #555;
+  font-size: 17px;
+  line-height: 1.5;
+  margin: 12px 0;
+}
 
-    button {
-      margin-top: 20px;
-      padding: 14px 32px;
-      font-size: 18px;
-      border: none;
-      border-radius: 40px;
-      background-color: #e2557f;
-      color: white;
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+button {
+  margin-top: 20px;
+  padding: 14px 32px;
+  font-size: 18px;
+  border: none;
+  border-radius: 40px;
+  background-color: #2a7f34;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-    button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 10px 20px rgba(226, 85, 127, 0.4);
-    }
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(42,127,52,0.4);
+}
 
-    .heart {
-      position: absolute;
-      color: #e2557f;
-      font-size: 18px;
-      animation: float 6s infinite ease-in;
-      opacity: 0.6;
-    }
+/* Floating hearts */
+.heart {
+  position: absolute;
+  color: #fff;
+  font-size: 18px;
+  animation: float 6s infinite ease-in;
+  opacity: 0.6;
+}
 
-    @keyframes float {
-      0% {
-        transform: translateY(100vh);
-        opacity: 0;
-      }
-      50% {
-        opacity: 0.7;
-      }
-      100% {
-        transform: translateY(-10vh);
-        opacity: 0;
-      }
-    }
+@keyframes float {
+  0% { transform: translateY(100vh); opacity: 0; }
+  50% { opacity: 0.7; }
+  100% { transform: translateY(-10vh); opacity: 0; }
+}
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  </style>
+@keyframes fadeIn {
+  from { opacity:0; transform: translateY(20px); }
+  to { opacity:1; transform: translateY(0); }
+}
+
+/* Carousel styles */
+.carousel {
+  position: relative;
+  margin: 15px 0;
+}
+
+.carousel img {
+  width: 100%;
+  border-radius: 18px;
+  display: none;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.carousel img.active {
+  display: block;
+}
+
+/* Arrows */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 28px;
+  color: #2a7f34;
+  background: rgba(255,255,255,0.7);
+  border-radius: 50%;
+  padding: 4px 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.arrow:hover {
+  background: rgba(255,255,255,0.9);
+}
+
+.arrow-left { left: 5px; }
+.arrow-right { right: 5px; }
+
+</style>
 </head>
 <body>
 
-  <div class="card">
-    <h1>Amber Bell 💕</h1>
-    <p>
-      From the moment you came into my life,<br>
-      everything felt a little warmer,<br>
-      a little brighter, and a lot more meaningful.
-    </p>
-    <p>
-      You are my favorite person,<br>
-      my safe place,<br>
-      and my happiest thought.
-    </p>
-    <p>
-      Will you be my Valentine? 💌
-    </p>
+<div class="card">
+  <h1>Amber Bell 💚</h1>
 
-    <button onclick="sayYes()">Yes, always 🤍</button>
+  <div class="carousel">
+    <span class="arrow arrow-left" onclick="prevSlide()">❮</span>
+    <span class="arrow arrow-right" onclick="nextSlide()">❯</span>
+
+    <img src="us1.jpg" class="active">
+    <img src="us2.jpg">
+    <img src="us3.jpg">
+    <img src="us4.jpg">
   </div>
 
-  <script>
-    function sayYes() {
-      document.body.innerHTML = `
-        <div style="
-          display:flex;
-          flex-direction:column;
-          justify-content:center;
-          align-items:center;
-          height:100vh;
-          font-family:Georgia, serif;
-          background:linear-gradient(135deg, #fbc2eb, #f9d423);
-          text-align:center;
-          padding:20px;
-        ">
-          <h1 style="color:#e2557f; font-size:32px;">Happy Valentine’s Day 💖</h1>
-          <p style="font-size:20px; color:#555; max-width:400px;">
-            I’m so lucky to love you, Amber.<br>
-            Today and always 🤍
-          </p>
-        </div>
-      `;
-    }
+  <p>
+    From the moment you came into my life,<br>
+    everything felt warmer, brighter, and full of love.
+  </p>
+  <p>Will you be my Valentine? 💌</p>
 
-    setInterval(() => {
-      const heart = document.createElement('div');
-      heart.className = 'heart';
-      heart.innerText = '🤍';
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.animationDuration = (4 + Math.random() * 3) + 's';
-      document.body.appendChild(heart);
+  <button onclick="sayYes()">Yes, always 🤍</button>
+</div>
 
-      setTimeout(() => heart.remove(), 7000);
-    }, 400);
-  </script>
+<script>
+// Carousel logic
+let slides = document.querySelectorAll('.carousel img');
+let current = 0;
+
+function showSlide(index) {
+  slides.forEach((s, i) => s.classList.remove('active'));
+  slides[index].classList.add('active');
+}
+
+function nextSlide() {
+  current = (current + 1) % slides.length;
+  showSlide(current);
+}
+
+function prevSlide() {
+  current = (current - 1 + slides.length) % slides.length;
+  showSlide(current);
+}
+
+// Auto-slide every 4 seconds
+setInterval(nextSlide, 4000);
+
+// Floating hearts
+setInterval(() => {
+  const heart = document.createElement('div');
+  heart.className = 'heart';
+  heart.innerText = '💖';
+  heart.style.left = Math.random() * 100 + 'vw';
+  heart.style.animationDuration = (4 + Math.random() * 3) + 's';
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 7000);
+}, 400);
+
+// Yes button
+function sayYes() {
+  let html = `
+    <div style="
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+      font-family:Georgia, serif;
+      background:linear-gradient(135deg, #a8e6cf, #56ab2f);
+      text-align:center;
+      padding:20px;
+    ">
+      <h1 style="color:#2a7f34; font-size:32px;">I love you so much, Amber 💚</h1>
+      <p style="font-size:20px; color:#fff; max-width:400px;">
+        I can't wait for our getaway weekend on the 14th! I love you mama 🥰
+      </p>
+      <div class="carousel">
+        <img src="us1.jpg" class="active">
+        <img src="us2.jpg">
+        <img src="us3.jpg">
+        <img src="us4.jpg">
+      </div>
+    </div>
+  `;
+
+  document.body.innerHTML = html;
+
+  // Carousel in final message
+  let finalSlides = document.querySelectorAll('.carousel img');
+  let finalCurrent = 0;
+  function showFinalSlide(index) {
+    finalSlides.forEach((s,i)=>s.classList.remove('active'));
+    finalSlides[index].classList.add('active');
+  }
+  setInterval(() => {
+    finalCurrent = (finalCurrent +1) % finalSlides.length;
+    showFinalSlide(finalCurrent);
+  }, 3000);
+}
+</script>
 
 </body>
 </html>
+
+
+
