@@ -66,8 +66,8 @@ button {
 /* Images fully visible, no cropping */
 .carousel img {
   width: 100%;
-  max-height: 320px;   /* keeps carousel reasonable height */
-  object-fit: contain;  /* show full image */
+  max-height: 320px;
+  object-fit: contain;
   border-radius: 18px;
   display: none;
 }
@@ -195,20 +195,29 @@ function sayYes() {
     finalSlides[i].classList.add('active');
   }, 3000);
 
-  /* Falling hearts / Amber 💚 */
+  /* Magical falling hearts / Amber 💚 */
   setInterval(() => {
+    const container = document.querySelector('div'); // final message container
     const f = document.createElement('div');
     f.className = 'falling';
     f.innerText = Math.random() > 0.5 ? '💖' : 'Amber 💚';
     f.style.left = Math.random() * 100 + 'vw';
     f.style.fontSize = (14 + Math.random() * 14) + 'px';
-    document.body.appendChild(f);
+    f.style.position = 'absolute';
+    f.style.top = '-50px';
+    f.style.opacity = 0;
+    f.style.pointerEvents = 'none';
+    f.style.userSelect = 'none';
+    f.style.zIndex = 1000;
+    container.appendChild(f);
 
-    // Animate falling
+    // Animate falling with rotation, scale, and fade-in
     setTimeout(() => {
+      const rotate = Math.random() * 360;
+      const scale = 0.8 + Math.random() * 0.4; // 0.8 to 1.2
       f.style.transition = 'transform 5s linear, opacity 5s linear';
-      f.style.transform = 'translateY(110vh) rotate(' + (Math.random()*360) + 'deg)';
-      f.style.opacity = 0;
+      f.style.transform = `translateY(110vh) rotate(${rotate}deg) scale(${scale})`;
+      f.style.opacity = 0.9;
     }, 50);
 
     // Remove after animation
@@ -219,6 +228,7 @@ function sayYes() {
 
 </body>
 </html>
+
 
 
 
