@@ -17,8 +17,10 @@ body {
   align-items: center;
   justify-content: center;
   padding: 15px;
+  overflow-x: hidden;
 }
 
+/* Card */
 .card {
   background: rgba(255,255,255,0.95);
   width: 100%;
@@ -27,6 +29,8 @@ body {
   border-radius: 24px;
   text-align: center;
   box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+  position: relative;
+  overflow: hidden;
 }
 
 h1 {
@@ -53,22 +57,24 @@ button {
   cursor: pointer;
 }
 
+/* Carousel */
 .carousel {
   position: relative;
   margin: 15px 0 20px;
 }
 
+/* Images fully visible, no cropping */
 .carousel img {
   width: 100%;
-  height: auto;
-  max-height: 320px;
-  object-fit: cover;
+  max-height: 320px;   /* keeps carousel reasonable height */
+  object-fit: contain;  /* show full image */
   border-radius: 18px;
   display: none;
 }
 
 .carousel img.active { display: block; }
 
+/* Arrows */
 .arrow {
   position: absolute;
   top: 50%;
@@ -88,9 +94,18 @@ button {
   h1 { font-size: 28px; }
   p { font-size: 17px; }
 }
+
+/* Falling hearts / Amber text */
+.falling {
+  position: absolute;
+  top: -50px;
+  pointer-events: none;
+  user-select: none;
+  font-size: 16px;
+  opacity: 0.7;
+}
 </style>
 </head>
-
 <body>
 
 <div class="card">
@@ -117,6 +132,7 @@ button {
 </div>
 
 <script>
+/* Carousel */
 let slides = document.querySelectorAll('.carousel img');
 let current = 0;
 
@@ -137,6 +153,7 @@ function prevSlide() {
 
 setInterval(nextSlide, 4000);
 
+/* Final message */
 function sayYes() {
   document.body.innerHTML = `
     <div style="
@@ -150,6 +167,8 @@ function sayYes() {
       text-align:center;
       background:linear-gradient(135deg, #a8e6cf, #56ab2f);
       font-family:Georgia, serif;
+      overflow: hidden;
+      position: relative;
     ">
       <h1 style="color:#2a7f34; margin-bottom:10px;">
         I love you so much, Amber 💚
@@ -167,20 +186,39 @@ function sayYes() {
     </div>
   `;
 
+  /* Carousel */
   let finalSlides = document.querySelectorAll('.carousel img');
   let i = 0;
-
   setInterval(() => {
     finalSlides.forEach(s => s.classList.remove('active'));
     i = (i + 1) % finalSlides.length;
     finalSlides[i].classList.add('active');
   }, 3000);
+
+  /* Falling hearts / Amber 💚 */
+  setInterval(() => {
+    const f = document.createElement('div');
+    f.className = 'falling';
+    f.innerText = Math.random() > 0.5 ? '💖' : 'Amber 💚';
+    f.style.left = Math.random() * 100 + 'vw';
+    f.style.fontSize = (14 + Math.random() * 14) + 'px';
+    document.body.appendChild(f);
+
+    // Animate falling
+    setTimeout(() => {
+      f.style.transition = 'transform 5s linear, opacity 5s linear';
+      f.style.transform = 'translateY(110vh) rotate(' + (Math.random()*360) + 'deg)';
+      f.style.opacity = 0;
+    }, 50);
+
+    // Remove after animation
+    setTimeout(() => f.remove(), 5200);
+  }, 300);
 }
 </script>
 
 </body>
 </html>
-
 
 
 
