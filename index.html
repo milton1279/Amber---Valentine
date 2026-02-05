@@ -6,37 +6,46 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+* { box-sizing: border-box; }
+
 body {
   margin: 0;
   font-family: Georgia, serif;
   background: linear-gradient(135deg, #a8e6cf, #56ab2f);
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  padding: 15px;
 }
 
 .card {
   background: rgba(255,255,255,0.95);
-  padding: 30px 20px;
+  width: 100%;
+  max-width: 420px;
+  padding: 25px 18px 30px;
   border-radius: 24px;
   text-align: center;
   box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-  max-width: 380px;
 }
 
 h1 {
   color: #2a7f34;
+  font-size: 26px;
+  margin-bottom: 10px;
 }
 
 p {
   color: #555;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 12px 0;
 }
 
 button {
-  margin-top: 20px;
-  padding: 14px 32px;
-  font-size: 18px;
+  margin-top: 18px;
+  padding: 14px 28px;
+  font-size: 17px;
   border: none;
   border-radius: 40px;
   background-color: #2a7f34;
@@ -46,32 +55,39 @@ button {
 
 .carousel {
   position: relative;
-  margin: 15px 0;
+  margin: 15px 0 20px;
 }
 
 .carousel img {
   width: 100%;
+  height: auto;
+  max-height: 320px;
+  object-fit: cover;
   border-radius: 18px;
   display: none;
 }
 
-.carousel img.active {
-  display: block;
-}
+.carousel img.active { display: block; }
 
 .arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 28px;
-  background: rgba(255,255,255,0.8);
+  font-size: 30px;
+  background: rgba(255,255,255,0.85);
   border-radius: 50%;
-  padding: 4px 10px;
+  padding: 6px 12px;
   cursor: pointer;
+  user-select: none;
 }
 
-.arrow-left { left: 5px; }
-.arrow-right { right: 5px; }
+.arrow-left { left: 8px; }
+.arrow-right { right: 8px; }
+
+@media (min-width: 600px) {
+  h1 { font-size: 28px; }
+  p { font-size: 17px; }
+}
 </style>
 </head>
 
@@ -84,15 +100,15 @@ button {
     <span class="arrow arrow-left" onclick="prevSlide()">❮</span>
     <span class="arrow arrow-right" onclick="nextSlide()">❯</span>
 
-    <img src="dinner-pt2.jpg" class="active">
-    <img src="dinner.jpg">
-    <img src="disney.jpg">
-    <img src="tattoo.jpg">
+    <img src="Dinner1.jpg" class="active" alt="Dinner together">
+    <img src="Dinner2.jpg" alt="Dinner memories">
+    <img src="Disney.jpg" alt="Disney trip">
+    <img src="Tattoo.jpg" alt="Tattoo moment">
   </div>
 
   <p>
     From the moment you came into my life,<br>
-    everything felt warmer and brighter.
+    everything felt warmer, brighter, and full of love.
   </p>
 
   <p>Will you be my Valentine? 💌</p>
@@ -124,22 +140,29 @@ setInterval(nextSlide, 4000);
 function sayYes() {
   document.body.innerHTML = `
     <div style="
+      min-height:100vh;
+      width:100%;
       display:flex;
       flex-direction:column;
-      justify-content:center;
       align-items:center;
-      min-height:100vh;
+      justify-content:center;
+      padding:20px;
+      text-align:center;
       background:linear-gradient(135deg, #a8e6cf, #56ab2f);
       font-family:Georgia, serif;
-      text-align:center;
     ">
-      <h1 style="color:#2a7f34;">I love you so much, Amber 💚</h1>
+      <h1 style="color:#2a7f34; margin-bottom:10px;">
+        I love you so much, Amber 💚
+      </h1>
+      <p style="color:#fff; font-size:18px; margin-bottom:20px;">
+        I can't wait for our little getaway weekend together.
+      </p>
 
-      <div class="carousel">
-        <img src="dinner-pt2.jpg" class="active">
-        <img src="dinner.jpg">
-        <img src="disney.jpg">
-        <img src="tattoo.jpg">
+      <div class="carousel" style="max-width:420px; width:100%;">
+        <img src="Dinner1.jpg" class="active">
+        <img src="Dinner2.jpg">
+        <img src="Disney.jpg">
+        <img src="Tattoo.jpg">
       </div>
     </div>
   `;
@@ -157,6 +180,8 @@ function sayYes() {
 
 </body>
 </html>
+
+
 
 
 
