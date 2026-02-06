@@ -6,7 +6,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
@@ -31,6 +33,20 @@ body {
   box-shadow: 0 15px 40px rgba(0,0,0,0.15);
   position: relative;
   overflow: hidden;
+
+  /* Gentle entrance */
+  animation: riseIn 1.2s ease-out forwards;
+}
+
+@keyframes riseIn {
+  from {
+    transform: translateY(40px) scale(0.96);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
 }
 
 h1 {
@@ -63,7 +79,6 @@ button {
   margin: 15px 0 20px;
 }
 
-/* Images fully visible, no cropping */
 .carousel img {
   width: 100%;
   max-height: 320px;
@@ -72,7 +87,9 @@ button {
   display: none;
 }
 
-.carousel img.active { display: block; }
+.carousel img.active {
+  display: block;
+}
 
 /* Arrows */
 .arrow {
@@ -90,22 +107,22 @@ button {
 .arrow-left { left: 8px; }
 .arrow-right { right: 8px; }
 
-@media (min-width: 600px) {
-  h1 { font-size: 28px; }
-  p { font-size: 17px; }
-}
-
-/* Falling hearts / Amber text */
+/* Falling hearts / text */
 .falling {
   position: absolute;
   top: -50px;
   pointer-events: none;
   user-select: none;
-  font-size: 16px;
-  opacity: 0.7;
+  opacity: 0.8;
+}
+
+@media (min-width: 600px) {
+  h1 { font-size: 28px; }
+  p { font-size: 17px; }
 }
 </style>
 </head>
+
 <body>
 
 <div class="card">
@@ -133,11 +150,11 @@ button {
 
 <script>
 /* Carousel */
-let slides = document.querySelectorAll('.carousel img');
+const slides = document.querySelectorAll('.carousel img');
 let current = 0;
 
 function showSlide(index) {
-  slides.forEach(s => s.classList.remove('active'));
+  slides.forEach(slide => slide.classList.remove('active'));
   slides[index].classList.add('active');
 }
 
@@ -167,12 +184,13 @@ function sayYes() {
       text-align:center;
       background:linear-gradient(135deg, #a8e6cf, #56ab2f);
       font-family:Georgia, serif;
-      overflow: hidden;
-      position: relative;
+      overflow:hidden;
+      position:relative;
     ">
       <h1 style="color:#2a7f34; margin-bottom:10px;">
         I love you so much, Amber 💚
       </h1>
+
       <p style="color:#fff; font-size:18px; margin-bottom:20px;">
         I can't wait for our little getaway weekend together.
       </p>
@@ -186,41 +204,36 @@ function sayYes() {
     </div>
   `;
 
-  /* Carousel */
-  let finalSlides = document.querySelectorAll('.carousel img');
+  const finalSlides = document.querySelectorAll('.carousel img');
   let i = 0;
+
   setInterval(() => {
-    finalSlides.forEach(s => s.classList.remove('active'));
+    finalSlides.forEach(slide => slide.classList.remove('active'));
     i = (i + 1) % finalSlides.length;
     finalSlides[i].classList.add('active');
   }, 3000);
 
-  /* Magical falling hearts / Amber 💚 */
+  /* Falling hearts / Amber text */
   setInterval(() => {
-    const container = document.querySelector('div'); // final message container
+    const container = document.body;
     const f = document.createElement('div');
     f.className = 'falling';
     f.innerText = Math.random() > 0.5 ? '💖' : 'Amber 💚';
     f.style.left = Math.random() * 100 + 'vw';
-    f.style.fontSize = (14 + Math.random() * 14) + 'px';
+    f.style.fontSize = (14 + Math.random() * 16) + 'px';
     f.style.position = 'absolute';
-    f.style.top = '-50px';
-    f.style.opacity = 0;
-    f.style.pointerEvents = 'none';
-    f.style.userSelect = 'none';
+    f.style.top = '-40px';
     f.style.zIndex = 1000;
+
     container.appendChild(f);
 
-    // Animate falling with rotation, scale, and fade-in
     setTimeout(() => {
       const rotate = Math.random() * 360;
-      const scale = 0.8 + Math.random() * 0.4; // 0.8 to 1.2
       f.style.transition = 'transform 5s linear, opacity 5s linear';
-      f.style.transform = `translateY(110vh) rotate(${rotate}deg) scale(${scale})`;
+      f.style.transform = `translateY(110vh) rotate(${rotate}deg)`;
       f.style.opacity = 0.9;
     }, 50);
 
-    // Remove after animation
     setTimeout(() => f.remove(), 5200);
   }, 300);
 }
@@ -228,6 +241,8 @@ function sayYes() {
 
 </body>
 </html>
+
+
 
 
 
